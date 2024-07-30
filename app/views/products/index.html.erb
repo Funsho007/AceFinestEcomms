@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="text-center mt-4">
+    <h2 class="mb-3">Explore Our Products</h2>
+    <%= render_breadcrumbs %>
+  </div>
+
+  <div class="row mt-4">
+    <% @products.each do |product| %>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <%= link_to product, class: "card text-decoration-none text-dark shadow-sm" do %>
+          <div class="card-body">
+            <% if product.image.present? %>
+              <%= image_tag product&.image&.thumb&.url, class: "card-img-top img-fluid rounded"  %>
+            <% else %>
+              <%= image_tag("turbo_tech_parts.png", class: "card-img-top img-fluid rounded")  %>
+            <% end %>
+            <h5 class="card-title mt-3"><%= product.name %></h5>
+            <p class="card-text text-danger">Price: <%= product.price %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= paginate @products, theme: 'bootstrap-5' %>
+
+  <div class="text-center mt-4">
+    <%= link_to "View All Products", all_products_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="text-center mt-5">
+    <h2>Recently Added Products</h2>
+    <p>Updated within the last 3 days</p>
+  </div>
+
+  <div class="row mt-4">
+    <% @recent_products.each do |product| %>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <%= link_to product, class: "card text-decoration-none text-dark shadow-sm" do %>
+          <div class="card-body">
+            <% if product.image.present? %>
+              <%= image_tag product&.image&.thumb&.url, class: "card-img-top img-fluid rounded"  %>
+            <% else %>
+              <%= image_tag("turbo_tech_parts.png", class: "card-img-top img-fluid rounded")  %>
+            <% end %>
+            <h5 class="card-title mt-3"><%= product.name %></h5>
+            <p class="card-text text-danger">Price: <%= product.price %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

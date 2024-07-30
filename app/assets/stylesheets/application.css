@@ -1,0 +1,165 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+
+ /* app/assets/stylesheets/application.css */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* General body styling for the sign-up page */
+body.signup-page {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signup-page header {
+  background-color: #007bff;
+  color: white;
+  padding: 1em 0;
+  text-align: center;
+  margin-bottom: 2em;
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+
+.signup-page header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  letter-spacing: 2px;
+}
+
+.signup-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2em 3em;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  margin: 20px;
+  text-align: center;
+  z-index: 2;
+}
+
+.signup-container h2 {
+  color: #333;
+  margin-bottom: 1.5em;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.signup-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container form input[type="text"],
+.signup-container form input[type="email"],
+.signup-container form input[type="password"],
+.signup-container form select {
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.signup-container form input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 1em;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.signup-container form input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.signup-container form input:focus,
+.signup-container form select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.signup-container .error_messages {
+  color: red;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .signup-page body {
+    padding: 0 1em;
+  }
+
+  .signup-page header h1 {
+    font-size: 2em;
+  }
+
+  .signup-container {
+    padding: 1.5em 2em;
+  }
+
+  .signup-container form input[type="text"],
+  .signup-container form input[type="email"],
+  .signup-container form input[type="password"],
+  .signup-container form select {
+    padding: 0.8em;
+    font-size: 0.9em;
+  }
+
+  .signup-container form input[type="submit"] {
+    padding: 0.8em;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-page header h1 {
+    font-size: 1.5em;
+  }
+
+  .signup-container {
+    padding: 1em 1.5em;
+  }
+
+  .signup-container form input[type="text"],
+  .signup-container form input[type="email"],
+  .signup-container form input[type="password"],
+  .signup-container form select {
+    padding: 0.6em;
+    font-size: 0.8em;
+  }
+
+  .signup-container form input[type="submit"] {
+    padding: 0.6em;
+    font-size: 0.8em;
+  }
+}

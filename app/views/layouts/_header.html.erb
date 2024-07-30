@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+  <div class="container-fluid">
+    <%= link_to "PrettyHub", root_path, class: "navbar-brand" %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Move the category selection outside of the collapsible section -->
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Categories
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% @categories&.each do |cat| %>
+            <%= link_to cat.name.capitalize, category_path(cat), class: "dropdown-item" %>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/featured_products">Feature Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/recent_products">Recent Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/all_products">All Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About PrettyHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact_us">Contact us</a>
+        </li>
+        <li class="nav-item">
+          <%= form_tag all_products_path, :method => "get", :class => "form-inline" do %>
+            <%=  text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Product Name?" %>
+            <%= select_tag(:category_id, options_from_collection_for_select(ProductCategory.all, :id, :name), prompt: 'Select a category') %>
+            <%= submit_tag("Search", :name=>nil) %>
+          <% end %>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <%= render 'layouts/cart' %>
+        <%= render 'layouts/auth' %>
+      </form>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,28 @@
+<div class="container">
+  <br>
+  <br>
+  <<div></div>
+  <%= render_breadcrumbs %>
+  <div class="text-left">
+    <h3>Featured Products</h3>
+  </div>
+  <div class="row">
+    <% @featured_products.each do |product| %>
+      <div class="col-lg-2 col-md-6 mb-4">
+        <%= link_to product, class: "card" do %>
+          <% if product.image.present? %>
+          <%= image_tag product&.image&.thumb&.url, class: "card-img-top"  %>
+        <% else %>
+          <%= image_tag("turbo_tech_parts.png", class: "card-img-top")  %>
+        <% end %>
+          <div class="card-body">
+            <p class="card-text"><%= product.name %></p>
+          </div>
+        <% end %>
+        <div class="card-footer text-muted">
+          <p class="card-text text-danger">Price: <%= product.price %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

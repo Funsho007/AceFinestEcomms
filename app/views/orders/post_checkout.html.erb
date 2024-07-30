@@ -1,0 +1,9 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Order has been placed</h1>
+      <p class="lead text-muted">Your order number is <%= @order.id %>.</p>
+      <p class="lead text-muted">Total amount including taxes: <%= number_to_currency(@order.total_with_tax) %></p>
+    </div>
+  </div>
+</section>

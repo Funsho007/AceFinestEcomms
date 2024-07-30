@@ -1,0 +1,40 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Order placed successfully!</h1>
+      <p class="lead text-muted">Thanks for your order. Your total amount paid is $<%= @amount %>.</p>
+      <hr>
+      <div class="text-left">
+        <% @products.each do |product| %>
+          <h3><%= product.name %></h3>
+          <p>Cost Price: $<%= product.price %></p>
+          <!-- Add more details as needed -->
+        <% end %>
+      </div>
+      <hr>
+      <p id="countdown-text">Redirecting in <span id="countdown">5</span> seconds...</p>
+      <!-- Add a hidden link to My Orders -->
+      <%= link_to "My Orders", orders_path, id: "my-orders-link", class: "btn btn-primary", style: "display: none;" %>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Countdown timer
+  var countdownElement = document.getElementById("countdown");
+  var countdownTextElement = document.getElementById("countdown-text");
+  var secondsRemaining = 5;
+
+  function countdown() {
+    countdownElement.textContent = secondsRemaining;
+    secondsRemaining--;
+
+    if (secondsRemaining < 0) {
+      clearInterval(timer); // Stop the countdown
+      // Redirect to My Orders page
+      window.location.href = document.getElementById("my-orders-link").getAttribute("href");
+    }
+  }
+
+  var timer = setInterval(countdown, 1000);
+</script>

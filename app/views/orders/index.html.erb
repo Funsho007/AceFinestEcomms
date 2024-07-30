@@ -1,0 +1,29 @@
+<br>
+<br>
+<br>
+<h1>Your Orders</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Amount Paid</th>
+        <th>Date</th>
+        <th>Order Status</th>
+        <!-- Add more table headers for other order details -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td>$ <%= order.total %></td>
+          <td><%= order.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= order.status %></td>
+          <!-- Add more table cells for other order details -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
