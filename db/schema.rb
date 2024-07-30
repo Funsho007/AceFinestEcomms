@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_221614) do
     t.string "type"
     t.string "pamalink"
   end
+  
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
