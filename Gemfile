@@ -2,7 +2,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.3.0"
-gem 'sqlite3'
+gem 'sqlite3', group: [:development, :test]
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
@@ -84,5 +84,6 @@ gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'stripe'
 gem "breadcrumbs_on_rails"
+
 
 gem 'pg'
