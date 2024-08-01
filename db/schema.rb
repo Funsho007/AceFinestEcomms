@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_26_221614) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_01_204210) do
   create_table "abouts", force: :cascade do |t|
     t.string "title"
     t.string "content"
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_221614) do
     t.integer "order_id"
     t.integer "product_id", null: false
     t.float "total_amount"
+    t.float "product_price"
+    t.float "tax_rate"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
