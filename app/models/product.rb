@@ -9,7 +9,9 @@ class Product < ApplicationRecord
   # Validations
   validate :product_category_present
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :price, presence: true, format: { with: /\A\d+(?:\.\d{2})?\z/ }, numericality: { greater_than: 0, less_than: 1000000 }
+  validates :price, presence: true,
+                  format: { with: /\A\d+(?:\.\d+)?\z/ },
+                  numericality: { greater_than: 0, less_than: 1000000 }
 
   # Scopes
   scope :recent_products, -> { where("products.updated_at >= ?", 3.days.ago) }
