@@ -1,12 +1,10 @@
-ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF;")
-
 require 'faker'
 
 puts "Destroying existing records..."
 
 # Use transactions to ensure atomicity
 ActiveRecord::Base.transaction do
-  # Destroy all existing products to avoid foreign key constraint issues
+  # Destroy all existing records to avoid foreign key constraint issues
   Product.destroy_all
   User.destroy_all
   ProductCategory.destroy_all
@@ -159,5 +157,4 @@ ActiveRecord::Base.transaction do
   )
 end
 
-ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = ON;")
 puts "Seeding completed successfully."
