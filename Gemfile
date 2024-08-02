@@ -87,3 +87,5 @@ gem "breadcrumbs_on_rails"
 
 
 gem 'pg'
+
+gem 'httparty'
