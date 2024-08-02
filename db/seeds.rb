@@ -4,7 +4,7 @@ puts "Destroying existing records..."
 
 # Use transactions to ensure atomicity
 ActiveRecord::Base.transaction do
-  # Destroy all existing records to avoid foreign key constraint issues
+  # Destroy all existing products to avoid foreign key constraint issues
   Product.destroy_all
   User.destroy_all
   ProductCategory.destroy_all
@@ -37,7 +37,7 @@ ActiveRecord::Base.transaction do
   # Assuming you want to create some users
   10.times do
     User.create!(
-      full_name: Faker::Name.name,
+      full_name: Faker::Name.name, # Ensure this matches your User model's validation
       email: Faker::Internet.email,
       password: 'password',
       address: Faker::Address.street_address,
@@ -64,7 +64,7 @@ ActiveRecord::Base.transaction do
     name: 'Good',
     description: Faker::Hipster.paragraph,
     image: open_asset('5.jpg'),
-    price: 70.90,
+    price: 70.99,
     quantity: 10
   )
 
@@ -93,15 +93,15 @@ ActiveRecord::Base.transaction do
   )
 
   cat4.products.create!(
-    name: 'Console',
+    name: 'Mascara',
     description: Faker::Hipster.paragraph,
     image: open_asset('5.jpg'),
     quantity: 29,
-    price: 200.29
+    price: 20.29
   )
 
   cat2.products.create!(
-    name: 'Controller',
+    name: 'Contro',
     description: Faker::Hipster.paragraph,
     image: open_asset('8.jpeg'),
     quantity: 10,
