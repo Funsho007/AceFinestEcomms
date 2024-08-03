@@ -1,7 +1,9 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <%= f.text_field :full_name, autofocus: true, placeholder: "Full Name" %>
+  <%= f.text_field :first_name, autofocus: true, placeholder: "First Name" %>
+  <%= f.text_field :last_name, placeholder: "Last Name" %>
+  <%= f.text_field :phone_number, placeholder: "Phone Number" %>
   <%= f.email_field :email, autocomplete: "email", placeholder: "Email" %>
   <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %>
   <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm Password" %>
