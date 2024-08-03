@@ -1,5 +1,5 @@
 <style>
-    /* ... (keep your existing styles) ... */
+  /* ... (keep your existing styles) ... */
 </style>
 
 <% if @order_items.size == 0 %>
@@ -34,7 +34,7 @@
                   <div class="p-5">
                     <div class="d-flex justify-content-between align-items-center mb-5">
                       <h1 class="fw-bold mb-0 text-black">Your Products Cart</h1>
-                      <h6 class="mb-0 text-muted"><%= @order_items&.size %> products</h6>
+                      <h6 class="mb-0 text-muted"><%= @order_items.size %> products</h6>
                     </div>
                     <hr class="my-4">
                     <% @order_items.each do |order_item| %>
