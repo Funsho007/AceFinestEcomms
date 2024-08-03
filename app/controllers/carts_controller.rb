@@ -3,7 +3,7 @@ class CartsController < BaseController
 
   def show
     add_breadcrumb "products", products_path
-    @order_items = current_order.try(:order_items) || []
+    @order_items = current_order.order_items
   rescue ActiveRecord::RecordNotFound
     @order_items = []
   end
@@ -11,7 +11,21 @@ class CartsController < BaseController
   private
 
   def current_order
-    @current_order ||= Order.find(session[:order_id]) if session[:order_id]
-    @current_order ||= Order.create(user: current_user)
+    if session[:order_id]
+      begin
+        @current_order = Order.find(session[:order_id])
+      rescue ActiveRecord::RecordNotFound
+        session[:order_id] = nil
+        @current_order = create_new_order
+      end
+    else
+      @current_order = create_new_order
+    end
+  end
+
+  def create_new_order
+    order = Order.create(user: current_user)
+    session[:order_id] = order.id
+    order
   end
 end
