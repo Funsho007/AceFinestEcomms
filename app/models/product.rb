@@ -5,7 +5,8 @@ class Product < ApplicationRecord
 
   # Associations
   belongs_to :product_category
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
+  mount_uploader :image, ProductImageUploader
 
   # Validations
   validate :product_category_present

@@ -13,11 +13,10 @@
 ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
   create_table "abouts", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.text "content"
+    t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
-    t.string "pamalink"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -49,33 +48,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
   end
 
   create_table "admin_users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "contacts", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.text "content"
+    t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "pamalink"
   end
 
   create_table "order_items", force: :cascade do |t|
     t.float "price"
     t.integer "quantity"
+    t.float "total_amount"
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_id"
-    t.integer "product_id", null: false
-    t.float "total_amount"
     t.float "product_price"
     t.float "tax_rate"
     t.index ["order_id"], name: "index_order_items_on_order_id"
@@ -86,11 +83,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
     t.float "total"
     t.float "delivery_charges"
     t.integer "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "payment_method"
-    t.string "address"
+    t.string "shipping_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "city"
     t.string "province"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -98,21 +95,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
 
   create_table "product_categories", force: :cascade do |t|
     t.string "name", null: false
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
-    t.string "description"
+    t.text "description"
     t.float "price", null: false
     t.integer "quantity", null: false
+    t.integer "product_category_id", null: false
+    t.string "image"
+    t.boolean "is_featured", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "product_category_id"
-    t.string "image"
-    t.boolean "is_featured"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
   end
 
@@ -129,24 +126,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
     t.integer "resource_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
   create_table "user_roles", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "first_name", default: "", null: false
-    t.string "last_name", default: "", null: false
-    t.string "phone_number", default: "", null: false
-    t.string "address", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone_number", null: false
+    t.string "address", null: false
+    t.string "encrypted_password", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -158,8 +156,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
     t.string "postal_code"
     t.string "full_name"
     t.string "name"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
@@ -176,4 +172,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_213841) do
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "product_categories"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
 end

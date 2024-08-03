@@ -31,7 +31,12 @@ class ProductsController < BaseController
 
   def show
     @product = Product.find_by(id: params[:id])
-    @order_item = @current_order.order_items.new
+    if @product
+      Rails.logger.debug { "Current order: #{@current_order.inspect}" }
+      @order_item = @current_order.order_items.new
+    else
+      redirect_to products_path, alert: 'Product not found'
+    end
   end
 
   private

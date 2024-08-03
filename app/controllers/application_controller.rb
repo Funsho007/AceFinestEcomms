@@ -12,18 +12,29 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    @current_order ||= find_or_create_order
+    if session[:order_id]
+      @current_order = Order.find(session[:order_id])
+    else
+      @current_order = Order.create(status: 'pending')
+      session[:order_id] = @current_order.id
+    end
   end
 
   private
 
   def find_or_create_order
-    if session[:order_id].present?
-      order = Order.find_by(id: session[:order_id])
-      return order if order
+    if user_signed_in?
+      Order.find_or_create_by(user: current_user, status: 'pending')
+    elsif session[:order_id].present?
+      order = Order.find_by(id: session[:order_id], status: 'pending')
+      order || create_new_order
+    else
+      create_new_order
     end
+  end
 
-    order = Order.create
+  def create_new_order
+    order = Order.create(status: 'pending')
     session[:order_id] = order.id
     order
   end
@@ -31,8 +42,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:full_name, :address, :city, :postal_code, :province_id])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:full_name, :address, :city, :postal_code, :province_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :address, :city, :postal_code, :province_id, :phone_number])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :address, :city, :postal_code, :province_id])
   end
 
   def load_categories
